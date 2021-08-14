@@ -1,0 +1,14 @@
+{
+    "type": "answer",
+    "sdp": "v=0\r\no=- 4676321470733115354 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic: WMS\r\nm=video 9 UDP/TLS/RTP/SAVPF 96\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:Mw1h\r\na=ice-pwd:DuIYat/UNR1c52l4MPze+M1F\r\na=ice-options:trickle\r\na=fingerprint:sha-256 F6:EB:2F:1E:A3:B0:8B:10:5D:70:09:35:71:66:82:18:06:20:D6:30:56:79:9F:77:A9:D4:1E:A5:4F:55:C6:10\r\na=setup:active\r\na=mid:video0\r\na=recvonly\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01e\r\n"
+}
+
+
+{
+    "type": "answer",
+    "sdp": "v=0\r\no=- 4887659981928736100 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=msid-semantic: WMS\r\nm=video 9 UDP/TLS/RTP/SAVPF 96\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:1hrS\r\na=ice-pwd:P2gC4EZN5fFTAAsdgm8G0Yus\r\na=ice-options:trickle\r\na=fingerprint:sha-256 71:A9:25:C2:E9:1B:EF:48:D4:C0:38:E7:2A:DE:62:B6:ED:0C:F1:62:44:1B:5F:09:67:62:20:11:1C:53:64:53\r\na=setup:active\r\na=mid:video0\r\na=recvonly\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01e\r\n"
+}
+
+Sending ICE candidate out: {"candidate":"candidate:2900097867 1 udp 2122260223 192.168.100.83 39247 typ host generation 0 ufrag Mw1h network-id 1","sdpMid":"video0","sdpMLineIndex":0}
+
+Sending ICE candidate out: {"candidate":"candidate:2900097867 1 udp 2122260223 192.168.100.83 39247 typ host generation 0 ufrag Mw1h network-id 1","sdpMid":"video0","sdpMLineIndex":0}
