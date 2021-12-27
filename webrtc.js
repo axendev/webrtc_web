@@ -13,8 +13,8 @@ var rtc_configuration = {
 };
 
 var ws_conn;
-var ws_server;
-var ws_port = '8443';
+var ws_server = '141.101.180.164';
+var ws_port = '18443';
 
 function setStatus(text) {
     console.log(text);
