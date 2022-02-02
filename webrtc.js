@@ -1,11 +1,13 @@
 
-var html5VideoElement;
+var html5VideoElement, html5VideoElement2;
 var webrtcPeerConnection;
 var webrtcConfiguration;
 var reportError;
 var hostname;
 var port;
 var path;
+var remoteStream1, remoteStream2;
+
 
 var rtc_configuration = {
     iceServers: [
@@ -13,8 +15,10 @@ var rtc_configuration = {
 };
 
 var ws_conn;
-var ws_server = '141.101.180.164';
-var ws_port = '18443';
+var ws_server = '192.168.1.13';
+var ws_port = '8443';
+
+var onstream_cnt = 0;
 
 function setStatus(text) {
     console.log(text);
@@ -51,18 +55,45 @@ function onIncomingICE(ice) {
     webrtcPeerConnection.addIceCandidate(candidate).catch(reportError);
 }
 
-let remoteStream = new MediaStream();
+
 function onAddRemoteStream(event) {
     // if (html5VideoElement.srcObject !== event.streams[0]) {
-    console.log('Incoming stream');
-    html5VideoElement.autoplay = true;
-    html5VideoElement.srcObject = event.streams[0];
 
-    html5VideoElement.addEventListener("playing", () => {
-        console.log(html5VideoElement.videoWidth);
-        console.log(html5VideoElement.videoHeight);
-        //startMarkerPosition();
-    });
+    if(event.transceiver.mid == "video0")
+    {
+        console.log('Incoming stream from webrtctransceiver0');
+
+        remoteStream1 = new MediaStream();
+        remoteStream1.addTrack(event.track, remoteStream1);
+
+        html5VideoElement.srcObject = remoteStream1;
+        html5VideoElement.autoplay = true;        
+        html5VideoElement.play();       
+    }
+    else if(event.transceiver.mid == "video1"){
+        console.log('Incoming stream from webrtctransceiver1'); 
+         
+        remoteStream2 = new MediaStream();      
+        remoteStream2.addTrack(event.track, remoteStream2);
+
+        html5VideoElement2.srcObject = remoteStream2;
+        html5VideoElement2.autoplay = true;
+        html5VideoElement2.play(); 
+    }
+    else{
+        console.log('Incoming stream from unknown transceiver: ' + event.track.id); 
+    }
+
+    /*html5VideoElement.autoplay = true;
+        html5VideoElement.srcObject = event.streams[0];
+
+        html5VideoElement.addEventListener("playing", () => {
+            console.log(html5VideoElement.videoWidth);
+            console.log(html5VideoElement.videoHeight);
+            //startMarkerPosition();
+        });*/
+
+
     //var play_promise = html5VideoElement.play();
 
     // if (play_promise !== undefined) {
@@ -208,11 +239,35 @@ function websocketServerConnect() {
 }
 
 window.onload = function () {
-    html5VideoElement = document.getElementById("stream");
-    // html5VideoElement.srcObject = remoteStream;
+    html5VideoElement = document.getElementById("stream1");
+    html5VideoElement2 = document.getElementById("stream2");
+
+
+    
+    html5VideoElement.addEventListener("playing", () => {
+        console.log(html5VideoElement.videoWidth);
+        console.log(html5VideoElement.videoHeight);
+        //startMarkerPosition();
+    });
+
+    
+    html5VideoElement2.addEventListener("playing", () => {
+        console.log(html5VideoElement2.videoWidth);
+        console.log(html5VideoElement2.videoHeight);
+        //startMarkerPosition();
+    });
+
+
     websocketServerConnect();
 
 };
+
+
+function onDataChannel(event)
+{
+    console.msg('onDataChannel');
+}
+
 function createCall(msg) {
     if (!webrtcPeerConnection) {
         webrtcPeerConnection = new RTCPeerConnection(rtc_configuration);
@@ -226,5 +281,8 @@ function createCall(msg) {
 
         });
         webrtcPeerConnection.onicecandidate = onIceCandidate;
+
+        webrtcPeerConnection.ondatachannel = onDataChannel;
+        webrtcPeerConnection.on
     }
 };
